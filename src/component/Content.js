@@ -113,7 +113,22 @@ const monthlyData = [
   };
 });
 
+const location = [
+  'Warehouse 1',
+  'Warehouse 2',
+  'Warehouse 3',
+  'Warehouse 4',
+  'Warehouse 5',
+].map((i, index) => {
+  return {
+    id: index,
+    name: i,
+    addr: "Address " + String(index),
+  }
+})
+
 function Content({ onSidebarHide }) {
+  const [toggle, setToggle] = useState(1);
     return (
       <div className="flex w-full">
         <div className="w-full h-screen hidden sm:block sm:w-20 xl:w-60 flex-shrink-0">
@@ -157,71 +172,125 @@ function Content({ onSidebarHide }) {
                   type="text"
                   name="company_website"
                   id="company_website"
-                  className="pl-12 py-2 pr-2 block w-full rounded-lg border-gray-300 bg-card"
+                  className="pl-12 py-2 pr-2 block w-full rounded-lg border-white-300 bg-card"
                   placeholder="search"
                 />
               </form>
             </div>
           </div>
-          <div className="w-full p-2 lg:w-1/4">
-            <div className="rounded-lg bg-card h-80">
-              <CurrentTemp offset={(tempOffset+15)*100/50}/>
+          <div class="w-full border-gray-200 dark:border-gray-800 overflow-y-auto lg:block hidden p-5">
+            <div class="text-xs text-gray-400 tracking-wider">WAREHOUSES</div>
+            <div class="flex flex-row space-x-4 mt-3">
+              {location.map(({id, name, addr}) => (
+              <button class={toggle === id+1 ? "rounded-lg bg-card p-3 w-full flex flex-col rounded-md dark:bg-gray-800 shadow-lg relative ring-2 ring-blue-500 focus:outline-none" : "rounded-lg bg-card p-3 w-full flex flex-col rounded-md dark:bg-gray-800 shadow"} onClick={() => setToggle(id+1)}>
+                <div class="flex xl:flex-row flex-col items-center font-medium text-white-900 pb-2 mb-2 xl:border-b border-gray-200 border-opacity-75 dark:border-gray-700 w-full">
+                <IconButton icon="https://svgshare.com/i/gj6.svg" className="w-8 h-8 mr-5" />
+                  {name}
+                </div>
+                <div class="flex items-center w-full">
+                  <div class="text-xs py-1 px-2 leading-none dark:bg-gray-900 bg-yellow-100 text-yellow-600 rounded-md">Address</div>
+                  <div class="ml-auto text-xs text-gray-400">{addr}</div>
+                </div>
+              </button>
+              ))}
             </div>
           </div>
-          <div className="w-full p-2 lg:w-1/4">
-            <div className="rounded-lg bg-card h-80">
-              <Humidity offset = {humidityOffset}/>
+          <div className="content-tabs">
+            <div className={toggle === 1 ? "content active-content" : "content"}>
+              <WareDetail/>
             </div>
-          </div>
-          <div className="w-full p-2 lg:w-1/4">
-            <div className="rounded-lg bg-card h-80">
-              <Light offset = {lightOffset}/>
+    
+            <div
+              className={toggle === 2 ? "content active-content" : "content"}
+            >
+              <WareDetail/>
             </div>
-          </div>
-          <div className="w-full p-2 lg:w-1/4">
-            <div className="rounded-lg bg-card h-80">
-              <Gas emit={emit}/>
+
+            <div
+              className={toggle === 3 ? "content active-content" : "content"}
+            >
+              <WareDetail/>
             </div>
-          </div>
-          {equipmentData.map(
-            ({
-              id,
-              name,
-              position,
-              ages,
-              rise,
-              mode,
-              imgId,
-            }) => (
-              <NameCard
-                key={id}
-                id={id}
-                name={name}
-                position={position}
-                age={ages}
-                rise={rise}
-                mode={mode}
-                imgId={imgId}
-              />
-            ),
-          )}
-          
-          <div className="w-full p-2 lg:w-2/3">
-            <div className="rounded-lg bg-card sm:h-100 h-100">
-              <Tabs />
+
+            <div
+              className={toggle === 4 ? "content active-content" : "content"}
+            >
+              <WareDetail/>
             </div>
-          </div>
-          <div className="w-full p-2 lg:w-1/3">
-            <div className="rounded-lg bg-card overflow-hidden">
-              <AddComponent />
+
+            <div
+              className={toggle === 5 ? "content active-content" : "content"}
+            >
+              <WareDetail/>
             </div>
           </div>
         </div>
       </div>
+              
     );
 }
 
-export default Content
+export default Content;
+
+function WareDetail() {
+  return (
+    <div className="h-full flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2">
+      <div className="w-full p-2 lg:w-1/4">
+        <div className="rounded-lg bg-card h-80">
+          <CurrentTemp offset={(tempOffset+15)*100/50}/>
+        </div>
+      </div>
+      <div className="w-full p-2 lg:w-1/4">
+        <div className="rounded-lg bg-card h-80">
+          <Humidity offset = {humidityOffset}/>
+        </div>
+      </div>
+      <div className="w-full p-2 lg:w-1/4">
+        <div className="rounded-lg bg-card h-80">
+          <Light offset = {lightOffset}/>
+        </div>
+      </div>
+      <div className="w-full p-2 lg:w-1/4">
+        <div className="rounded-lg bg-card h-80">
+          <Gas emit={emit}/>
+        </div>
+      </div>
+      {equipmentData.map(
+        ({
+          id,
+          name,
+          position,
+          ages,
+          rise,
+          mode,
+          imgId,
+        }) => (
+          <NameCard
+            key={id}
+            id={id}
+            name={name}
+            position={position}
+            age={ages}
+            rise={rise}
+            mode={mode}
+            imgId={imgId}
+          />
+        ),
+      )}
+      
+      <div className="w-full p-2 lg:w-2/3">
+        <div className="rounded-lg bg-card sm:h-100 h-100">
+          <TabChart/>
+        </div>
+      </div>
+      <div className="w-full p-2 lg:w-1/3">
+        <div className="rounded-lg bg-card overflow-hidden">
+          <AddComponent />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function NameCard({
     name,
@@ -259,14 +328,8 @@ function NameCard({
                 width={mode ? 200 : 0}
                 height="6"
                 rx="3"
-                fill="url(#paint0_linear)"
+                fill="#560bad"
               />
-              <defs>
-                <linearGradient id="paint0_linear" x1="0" y1="0" x2="1" y2="0">
-                  <stop stopColor="#8E76EF" />
-                  <stop offset="1" stopColor="#3912D2" />
-                </linearGradient>
-              </defs>
             </svg>
           </div>
           <Info
@@ -310,13 +373,12 @@ function NameCard({
               {`${ age }`}
               <div className="text-sm inline" id="sym">&deg;C</div>
             </animated.div>
-            
           </div>
       )
     }
   };
 
-  function Tabs() {
+  function TabChart() {
     const [toggleState, setToggleState] = useState(1);
   
     return (
@@ -346,26 +408,26 @@ function NameCard({
           <div
             className={toggleState === 1 ? "content active-content" : "content"}
           >
-            <GraphHourly graphData={hourlyData}/>
+            <Graph graphData={hourlyData}/>
           </div>
   
           <div
             className={toggleState === 2 ? "content active-content" : "content"}
           >
-            <GraphDaily graphData={dailyData}/>
+            <Graph graphData={dailyData}/>
           </div>
 
           <div
             className={toggleState === 3 ? "content active-content" : "content"}
           >
-            <GraphMonthly graphData={monthlyData}/>
+            <Graph graphData={monthlyData}/>
           </div>
         </div>
       </div>
     );
   }
 
-  function GraphHourly({graphData}) {
+  function Graph({graphData}) {
     const CustomTooltip = ({ active, payload, label }) => {
       if (active && payload && payload.length) {
         return (
@@ -401,92 +463,8 @@ function NameCard({
   
         <div className="flex-grow">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart width={500} height={300} data={graphData}>
-              <defs>
-                <linearGradient id="paint1_linear" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#ff8fa3" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#590d22" stopOpacity="1" />
-                </linearGradient>
-              </defs>
-              <CartesianGrid
-                horizontal={false}
-                strokeWidth="6"
-                stroke="#252525"
-              />
-              <XAxis
-                dataKey="name"
-                axisLine={false}
-                tickLine={false}
-                tickMargin={10}
-              />
-              <YAxis axisLine={false} tickLine={false} tickMargin={10} />
-              <Tooltip content={<CustomTooltip />} cursor={false} />
-              <Legend/>
-              <Line
-                type="category"
-                dataKey="humid"
-                stroke="url(#paint0_linear)"
-                strokeWidth="4"
-                dot={false}
-              />
-              <Line
-                type="category"
-                dataKey="temper"
-                stroke="url(#paint1_linear)"
-                strokeWidth="4"
-                dot={false}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-    );
-  }
-
-  function GraphDaily({graphData}) {
-    const CustomTooltip = ({ active, payload, label }) => {
-      if (active && payload && payload.length) {
-        return (
-          <div className="rounded-xl overflow-hidden tooltip-head">
-            <div className="flex items-center justify-between p-2">
-              <div className="">Daily</div>
-              <Icon path="res-react-dash-options" className="w-2 h-2" />
-            </div>
-            <div className="tooltip-body text-center p-3">
-              <div className="text-white font-bold">{`${ label }`}</div>
-              <div className="hum">Humidity is {`${payload[0].value.toFixed(2)}` } %</div>
-              <div className="temp">Temporature is {`${payload[1].value.toFixed(2)}` } &deg;C = {`${(payload[1].value * 9 / 5 + 32).toFixed(2)}` } &deg;F</div>
-            </div>
-          </div>
-        );
-      }
-    };
-    return (
-      <div className="flex p-4 h-full flex-col">
-        <div className="">
-          <div className="flex items-center">
-            <div className="font-bold text-white">Temporature (&deg;C) & Humidity (%)</div>
-            <div className="flex-grow" />
-  
-            <Icon path="res-react-dash-graph-range" className="w-4 h-4" />
-            <div className="ml-2">Last 9 Months</div>
-            <div className="ml-6 w-5 h-5 flex justify-center items-center rounded-full icon-background">
-              ?
-            </div>
-          </div>
-          <div className="font-bold ml-5">Nov - July</div>
-        </div>
-  
-        <div className="flex-grow">
-          <ResponsiveContainer width="100%" height="100%">
             <div>
-            <LineChart width={794} height={275} data={graphData}>
-              <defs>
-                <linearGradient id="paint2_linear" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#ff8fa3" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#590d22" stopOpacity="1" />
-                </linearGradient>
-              </defs>
+            <LineChart width={750} height={290} data={graphData}>
               <CartesianGrid
                 horizontal={false}
                 strokeWidth="6"
@@ -504,94 +482,14 @@ function NameCard({
               <Line
                 type="category"
                 dataKey="humid"
-                stroke="url(#paint0_linear)"
+                stroke="#407ba7"
                 strokeWidth="4"
                 dot={false}
               />
               <Line
                 type="category"
                 dataKey="temper"
-                stroke="url(#paint2_linear)"
-                strokeWidth="4"
-                dot={false}
-              />
-            </LineChart>
-            </div>
-          </ResponsiveContainer>
-        </div>
-      </div>
-    );
-  }
-
-  function GraphMonthly({graphData}) {
-    const CustomTooltip = ({ active, payload, label }) => {
-      if (active && payload && payload.length) {
-        return (
-          <div className="rounded-xl overflow-hidden tooltip-head">
-            <div className="flex items-center justify-between p-2">
-              <div className="">Monthly</div>
-              <Icon path="res-react-dash-options" className="w-2 h-2" />
-            </div>
-            <div className="tooltip-body text-center p-3">
-              <div className="text-white font-bold">{`${ label }`}</div>
-              <div className="hum">Humidity is {`${payload[0].value.toFixed(2)}` } %</div>
-              <div className="temp">Temporature is {`${payload[1].value.toFixed(2)}` } &deg;C = {`${(payload[1].value * 9 / 5 + 32).toFixed(2)}` } &deg;F</div>
-            </div>
-          </div>
-        );
-      }
-    };
-    return (
-      <div className="flex p-4 h-full flex-col">
-        <div className="">
-          <div className="flex items-center">
-            <div className="font-bold text-white">Temporature (&deg;C) & Humidity (%)</div>
-            <div className="flex-grow" />
-  
-            <Icon path="res-react-dash-graph-range" className="w-4 h-4" />
-            <div className="ml-2">Last 9 Months</div>
-            <div className="ml-6 w-5 h-5 flex justify-center items-center rounded-full icon-background">
-              ?
-            </div>
-          </div>
-          <div className="font-bold ml-5">Nov - July</div>
-        </div>
-  
-        <div className="flex-grow">
-          <ResponsiveContainer width="100%" height="100%">
-            <div>
-            <LineChart width={794} height={275} data={graphData}>
-              <defs>
-                <linearGradient id="paint3_linear" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#ff8fa3" stopOpacity="1" />
-                  <stop offset="100%" stopColor="#590d22" stopOpacity="1" />
-                </linearGradient>
-              </defs>
-              <CartesianGrid
-                horizontal={false}
-                strokeWidth="6"
-                stroke="#252525"
-              />
-              <XAxis
-                dataKey="name"
-                axisLine={false}
-                tickLine={false}
-                tickMargin={10}
-              />
-              <YAxis axisLine={false} tickLine={false} tickMargin={10} />
-              <Tooltip content={<CustomTooltip />} cursor={false} />
-              <Legend/>
-              <Line
-                type="category"
-                dataKey="humid"
-                stroke="url(#paint0_linear)"
-                strokeWidth="4"
-                dot={false}
-              />
-              <Line
-                type="category"
-                dataKey="temper"
-                stroke="url(#paint3_linear)"
+                stroke="#c43240"
                 strokeWidth="4"
                 dot={false}
               />

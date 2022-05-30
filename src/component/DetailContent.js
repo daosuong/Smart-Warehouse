@@ -2,6 +2,7 @@ import Icon from "./Icon";
 import IconButton from "./IconButton";
 import "../styles/Content.scss";
 import Image from "./Image";
+import { useState } from "react";
 
 const detailData = [
   {
@@ -104,41 +105,56 @@ const detailData = [
   }
 ];
 
+const location = [
+  'Warehouse 1',
+  'Warehouse 2',
+  'Warehouse 3',
+  'Warehouse 4',
+  'Warehouse 5',
+].map((i, index) => {
+  return {
+    id: index,
+    name: i,
+    addr: "Address " + String(index),
+  }
+})
+
 function DetailContent({ onSidebarHide }) {
+  const [toggle, setToggle] = useState(1);
   return (
     <div className="flex w-full">
-      <div className="w-full h-screen hidden sm:block sm:w-20 xl:w-60 flex-shrink-0">
-        .
-      </div>
-      <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2">
-        <div className="w-full sm:flex p-2 items-end">
-          <div className="sm:flex-grow flex justify-between">
-            <div className="">
-              <div className="flex items-center">
-                <div className="text-3xl font-bold text-white">Hello Suong</div>
-                <div className="flex items-center p-2 bg-card ml-2 rounded-xl">
-                  <Icon path="res-react-dash-premium-star" />
-
-                  <div className="ml-2 font-bold text-premium-yellow">
-                    PREMIUM
+        <div className="w-full h-screen hidden sm:block sm:w-20 xl:w-60 flex-shrink-0">
+          .
+        </div>
+        <div className=" h-screen flex-grow overflow-x-hidden overflow-auto flex flex-wrap content-start p-2">
+          <div className="w-full sm:flex p-2 items-end">
+            <div className="sm:flex-grow flex justify-between">
+              <div className="">
+                <div className="flex items-center">
+                  <div className="text-3xl font-bold text-white">Hello Suong</div>
+                  <div className="flex items-center p-2 bg-card ml-2 rounded-xl">
+                    <Icon path="res-react-dash-premium-star" />
+  
+                    <div className="ml-2 font-bold text-premium-yellow">
+                      PREMIUM
+                    </div>
                   </div>
                 </div>
+                <div className="flex items-center">
+                  <Icon
+                    path="res-react-dash-date-indicator"
+                    className="w-3 h-3"
+                  />
+                  <div className="ml-2">May 4</div>
+                </div>
               </div>
-              <div className="flex items-center">
-                <Icon
-                  path="res-react-dash-date-indicator"
-                  className="w-3 h-3"
-                />
-                <div className="ml-2">May 4</div>
-              </div>
+              <IconButton
+                icon="https://assets.codepen.io/3685267/res-react-dash-sidebar-open.svg"
+                className="block sm:hidden"
+                onClick={onSidebarHide}
+              />
             </div>
-            <IconButton
-              icon="https://assets.codepen.io/3685267/res-react-dash-sidebar-open.svg"
-              className="block sm:hidden"
-              onClick={onSidebarHide}
-            />
-          </div>
-          <div className="w-full sm:w-56 mt-4 sm:mt-0 relative">
+            <div className="w-full sm:w-56 mt-4 sm:mt-0 relative">
               <Icon
                 path="res-react-dash-search"
                 className="w-5 h-5 search-icon left-3 absolute"
@@ -148,13 +164,75 @@ function DetailContent({ onSidebarHide }) {
                   type="text"
                   name="company_website"
                   id="company_website"
-                  className="pl-12 py-2 pr-2 block w-full rounded-lg border-gray-300 bg-card"
+                  className="pl-12 py-2 pr-2 block w-full rounded-lg border-white-300 bg-card"
                   placeholder="search"
                 />
               </form>
             </div>
-        </div>
-      <div className="w-full p-2">
+          </div>
+          <div class="w-full border-gray-200 dark:border-gray-800 overflow-y-auto lg:block hidden p-5">
+            <div class="text-xs text-gray-400 tracking-wider">WAREHOUSES</div>
+            <div class="flex flex-row space-x-4 mt-3">
+              {location.map(({id, name, addr}) => (
+              <button class={toggle === id+1 ? "rounded-lg bg-card p-3 w-full flex flex-col rounded-md shadow-lg relative ring-2 ring-blue-500 focus:outline-none" : "rounded-lg bg-card p-3 w-full flex flex-col rounded-md shadow"} onClick={() => setToggle(id+1)}>
+                <div class="flex xl:flex-row flex-col items-center font-medium text-white-900 pb-2 mb-2 xl:border-b border-gray-200 border-opacity-75 dark:border-gray-700 w-full">
+                <IconButton icon="https://svgshare.com/i/gj6.svg" className="w-8 h-8 mr-5" />
+                  {name}
+                </div>
+                <div class="flex items-center w-full">
+                  <div class="text-xs py-1 px-2 leading-none bg-yellow-100 text-yellow-600 rounded-md">Address</div>
+                  <div class="ml-auto text-xs text-gray-400">{addr}</div>
+                </div>
+              </button>
+              ))}
+              <div className="h-23">
+              <button className="lg:w-16 flex-shrink-0 h-full flex justify-center pt-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-plus-circle-fill hover:fill-[#4895ef] animate-bounce ring-2 hover:ring-black-999 rounded-full" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+                </svg>
+              </button>
+              </div>
+            </div>
+          </div>
+          <div className="content-tabs">
+            <div className={toggle === 1 ? "content active-content" : "content"}>
+              <DetailLocation/>
+            </div>
+    
+            <div
+              className={toggle === 2 ? "content active-content" : "content"}
+            >
+              <DetailLocation/>
+            </div>
+
+            <div
+              className={toggle === 3 ? "content active-content" : "content"}
+            >
+              <DetailLocation/>
+            </div>
+
+            <div
+              className={toggle === 4 ? "content active-content" : "content"}
+            >
+              <DetailLocation/>
+            </div>
+
+            <div
+              className={toggle === 5 ? "content active-content" : "content"}
+            >
+              <DetailLocation/>
+            </div>
+          </div>
+    </div>
+    </div>
+  )
+}
+
+export default DetailContent;
+
+function DetailLocation() {
+  return (
+    <div className="w-full p-2">
         <div className="rounded-lg bg-card p-5">
         <table class="w-full text-left">
           <thead>
@@ -162,7 +240,6 @@ function DetailContent({ onSidebarHide }) {
               <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200">ID</th>
               <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200">Name</th>
               <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 hidden md:table-cell">Type</th>
-              <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200">Location</th>
               <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200">State</th>
               <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200 hidden md:table-cell">Further Info</th>
               <th class="font-normal px-3 pt-0 pb-3 border-b border-gray-200">Date</th>
@@ -183,11 +260,6 @@ function DetailContent({ onSidebarHide }) {
                 <div class="flex items-center">
                   {type === "Light" ? <Image path={`https://svgshare.com/i/hj5.svg`} className="w-4 h-4 mr-2.5"/> : type === "Cooler" ? <Image path={`https://svgshare.com/i/hoA.svg`} className="w-4 h-4 mr-2.5"/>: <Image path={`https://svgshare.com/i/hnH.svg`} className="w-4 h-4 mr-2.5"/>}
                   {type}
-                </div>
-              </td>
-              <td class="sm:p-3 py-2 px-1 border-b border-gray-200">
-                <div class="flex items-center">
-                  {location}
                 </div>
               </td>
               {state ? <td class="sm:p-3 py-2 px-1 border-b border-gray-200 text-green-600">On</td> : <td class="sm:p-3 py-2 px-1 border-b border-gray-200 text-red-600">Off</td>}
@@ -228,9 +300,5 @@ function DetailContent({ onSidebarHide }) {
         </table>
         </div>
       </div>
-    </div>
-    </div>
-  )
-}
-
-export default DetailContent;
+  );
+};
