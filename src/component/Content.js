@@ -178,7 +178,7 @@ function Content({ onSidebarHide }) {
               </form>
             </div>
           </div>
-          <div class="w-full border-gray-200 dark:border-gray-800 overflow-y-auto lg:block hidden p-5">
+          <div class="w-full border-gray-200 dark:border-gray-800 border-b overflow-y-auto lg:block hidden p-5">
             <div class="text-xs text-gray-400 tracking-wider">WAREHOUSES</div>
             <div class="flex flex-row space-x-4 mt-3">
               {location.map(({id, name, addr}) => (
