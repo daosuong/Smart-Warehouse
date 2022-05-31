@@ -10,7 +10,7 @@ import '../styles/Login.css';
 const sidebarItems = [
     [
       { id: '0', title: 'Dashboard', notifications: false, link: '../dashboard' },
-      { id: '1', title: 'Detail', notifications: false, link: '../detail' },
+      { id: '1', title: 'Manage', notifications: false, link: '../detail' },
       { id: '2', title: 'Control', notifications: false, link: '../control' },
       { id: '3', title: 'Team', notifications: false, link: '../' },
     ],
