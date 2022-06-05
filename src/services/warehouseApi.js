@@ -5,7 +5,7 @@ export const warehouseApi = createApi({
 	reducerPath: 'warehouseApi',
 	baseQuery,
 	endpoints: (builder) => ({
-		getWarehouse: builder.query({
+		getWarehouses: builder.query({
 			query: () => ({
 				url: `/warehouses`,
 			})
@@ -41,6 +41,5 @@ export const {
 	useCreateNewWarehouseMutation,
 	useUpdateWarehouseMutation,
 	useDeleteWarehouseMutation,
-	useGetWarehouseQuery,
-	useLazyGetWarehouseQuery,
+	useGetWarehousesQuery,
 } = warehouseApi;

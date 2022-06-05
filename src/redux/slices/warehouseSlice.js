@@ -17,6 +17,11 @@ const warehousesSlice = createSlice({
     saveEquipmentData(state, action) {
       state.equipmentData = action.payload;
     },
+    saveSensorDataLog(state, action) {
+      state.hourlyData = action.payload.hourlyData;
+      state.dailyData = action.payload.dailyData;
+      state.monthlyData = action.payload.monthlyData;
+    },
     saveHourlyData(state, action) {
       state.hourlyData = action.payload;
     },
@@ -48,6 +53,7 @@ export const {
   saveEquipmentData,
   saveHourlyData,
   saveMonthlyData,
+  saveSensorDataLog,
 } = actions;
 
 export default reducer;

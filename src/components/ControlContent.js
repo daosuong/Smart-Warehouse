@@ -1,7 +1,8 @@
 import Icon from "./Icon";
 import IconButton from "./IconButton";
-import React, { useState } from "react";
+import React from "react";
 import '../styles/Control.scss';
+import ToggleSwitch from './ToggleSwitch';
 
 const data = [
   {
@@ -133,73 +134,54 @@ function ControlContent({ onSidebarHide }) {
 
 export default ControlContent
   
-  function Control({name, image, proper1, para1, proper2, para2, proper3, para3, proper4, para4, proper5, para5}) {
-    return (
-      <div className="p-4 h-full">
-        <div className="flex justify-between items-center">
-          <div className="text-white font-bold">{name}</div>
-          <ToggleSwitch />
-        </div>
-        <div className="mt-3">Current</div>
-        <div className="flex justify-center" style={{marginTop: '20px'}}>
-          <img src={image} alt="" width={275} height={275}/>
-        </div>
-        <div
-          className="font-bold"
-          style={{ color: '#2f49d1', fontSize: '18px', marginTop: '20px', marginBottom: '5px' }}
-        >Info</div>
-        <div className="Info sidebar-separator-bottom">
-          <table style={{marginTop: '10px'}}>
-            <tr>
-              <th className='name'>{proper1}:</th>
-              <th className='para'>{para1}</th>
-            </tr>
-            <tr>
-              <th className='name'>{proper2}: </th>  
-              <th className='para'>{para2}</th>
-            </tr>
-            <tr>
-              <th className='name'>{proper3}:</th>  
-              <th className='para'>{para3}</th>
-            </tr>
-            <tr>
-              <th className='name'>{proper4}: </th>
-              <th className='para'>{para4}</th>
-            </tr>  
-            <tr>
-              <th className='name'>{proper5}:</th>  
-              <th className='para'>{para5}</th>
-            </tr>
-            {/* <tr>
-              <th className='name'>Panel Thickness: </th> 
-              <th className='para'>100mm</th>
-            </tr>
-            <tr>
-              <th className='name'>Cooling Capacity: </th> 
-              <th className='para'>50ton</th>
-            </tr> */}
-          </table>
-        </div>
+function Control({name, image, proper1, para1, proper2, para2, proper3, para3, proper4, para4, proper5, para5}) {
+  return (
+    <div className="p-4 h-full">
+      <div className="flex justify-between items-center">
+        <div className="text-white font-bold">{name}</div>
+        <ToggleSwitch />
       </div>
-      
-    );
-  }
-  
-  
-
-  function ToggleSwitch() {
-    const [checked, setChecked] = useState(false)
-    
-    const onToggleSwitchChange = () => {
-      setChecked(!checked);
-    }
-    
-    return (
-      <div className='ToggleSwitch ToggleSwitch__rounded'>
-        <div className='ToggleSwitch__wrapper'>
-          <div className={`Slider ${checked && 'isChecked'}`} onClick={onToggleSwitchChange}></div>
-        </div>
+      <div className="mt-3">Current</div>
+      <div className="flex justify-center" style={{marginTop: '20px'}}>
+        <img src={image} alt="" width={275} height={275}/>
       </div>
-    );
-  }
-  
+      <div
+        className="font-bold"
+        style={{ color: '#2f49d1', fontSize: '18px', marginTop: '20px', marginBottom: '5px' }}
+      >Info</div>
+      <div className="Info sidebar-separator-bottom">
+        <table style={{marginTop: '10px'}}>
+          <tr>
+            <th className='name'>{proper1}:</th>
+            <th className='para'>{para1}</th>
+          </tr>
+          <tr>
+            <th className='name'>{proper2}: </th>  
+            <th className='para'>{para2}</th>
+          </tr>
+          <tr>
+            <th className='name'>{proper3}:</th>  
+            <th className='para'>{para3}</th>
+          </tr>
+          <tr>
+            <th className='name'>{proper4}: </th>
+            <th className='para'>{para4}</th>
+          </tr>  
+          <tr>
+            <th className='name'>{proper5}:</th>  
+            <th className='para'>{para5}</th>
+          </tr>
+          {/* <tr>
+            <th className='name'>Panel Thickness: </th> 
+            <th className='para'>100mm</th>
+          </tr>
+          <tr>
+            <th className='name'>Cooling Capacity: </th> 
+            <th className='para'>50ton</th>
+          </tr> */}
+        </table>
+      </div>
+    </div>
+    
+  );
+}

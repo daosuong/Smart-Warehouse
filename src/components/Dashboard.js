@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 
 const Dashboard = () => {
   const [showSidebar, onSetShowSidebar] = useState(false);
+
   return (
     <div className="flex">
       <Sidebar
-        onSidebarHide={() => {
+        onSidebarHide={() => {  
           onSetShowSidebar(false);
         }}
         showSidebar={showSidebar}

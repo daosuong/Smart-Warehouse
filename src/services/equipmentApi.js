@@ -57,13 +57,10 @@ export const equipmentApi = createApi({
 });
 
 export const {
-	useLazyGetEquimentControlQuery,
 	useCreateNewEquipmentMutation,
-	useLazyGetEquimentDataQuery,
 	useGetEquimentControlQuery,
 	useDeleteEquipmentMutation,
 	useUpdateEquipmentMutation,
-	useLazyGetEquipmentsQuery,
 	useGetEquimentDataQuery,
 	useGetEquipmentsQuery,
 } = equipmentApi;

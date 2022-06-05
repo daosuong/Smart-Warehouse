@@ -5,6 +5,16 @@ export const sensorApi = createApi({
 		reducerPath: 'sensorApi',
 		baseQuery,
 		endpoints: (builder) => ({
+			getPresentData: builder.query({
+				query: payload => ({
+					url: `/data/sensor/${payload.warehouseId}`
+				})
+			}),
+			getSensorDataLog: builder.query({
+				query: payload => ({
+					url: `/data/sensor/datalog/${payload.warehouseId}`,
+				})
+			}),
 			getDataHourly: builder.query({
 				query: (payload) => ({
 					url: `/data/hourly/${payload.warehouseId}`,
@@ -56,8 +66,7 @@ export const {
 	useGetDataDailyQuery,
 	useGetDataHourlyQuery,
 	useGetDataMonthlyQuery,
-	useLazyGetDataDailyQuery,
-	useLazyGetDataHourlyQuery,
-	useLazyGetDataMonthlyQuery,
 	useUpdateSensorMutation,
+	useGetPresentDataQuery,
+	useGetSensorDataLogQuery
 } = sensorApi;

@@ -10,10 +10,10 @@ function Gas({emit}) {
         <div className="">Gas Alarm</div>
         {emit ? 
             <div className="Alarm">
-                <i class="Phone is-animating"></i>
+                <i className="Phone is-animating"></i>
             </div> :
             <div className="Alarm">
-                <i class="Phone"></i>
+                <i className="Phone"></i>
             </div>
         }
         <div className="flex-grow" />
