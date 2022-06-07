@@ -2,41 +2,23 @@ import Icon from "./Icon";
 import IconButton from "./IconButton";
 import "../styles/Content.scss";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import WareDetail from './WareDetail';
-import { useGetWarehousesQuery } from "../services/warehouseApi";
-import { saveLocation } from "../redux/slices/warehouseSlice";
 
-// const location = [
-//   'Warehouse 1',
-//   'Warehouse 2',
-//   'Warehouse 3',
-//   'Warehouse 4',
-//   'Warehouse 5',
-// ].map((i, index) => {
-//   return {
-//     id: index,
-//     name: i,
-//     addr: "Address " + String(index),
-//   }
-// })
+
 
 function Content({ onSidebarHide }) {
-	const dispatch = useDispatch();
 	const { location } = useSelector(state => state.warehouse)
-	const { data } = useGetWarehousesQuery();
-
 	const [toggle, setToggle] = useState(0);
 	const handleChangeToggle = (id) => {
 		setToggle(id);
 	}
 
 	useEffect(() => {
-		if(data) {
-			dispatch(saveLocation(data.warehouseList));
-			setToggle(data.warehouseList[0].id);
+		if(location) {
+			setToggle(location[0]?.id);
 		}
-	}, [data]);
+	}, [location]);
 	
 	return (
 		<div className="flex w-full">
@@ -105,9 +87,11 @@ function Content({ onSidebarHide }) {
 					</div>
 				</div>
 				<div className="content-tabs">
-					<div className={ toggle !== 0 ? "content active-content" : "content"}>
-						<WareDetail warehouseId={toggle}/>
-					</div>
+					{!toggle || (
+						<div className={ toggle !== 0 ? "content active-content" : "content"}>
+							<WareDetail warehouseId={toggle}/>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

@@ -80,7 +80,6 @@ export default function TabChart({ warehouseId }) {
 
   useEffect(() => {
     if(sensorDataLog) {
-      console.log(sensorDataLog.sensorDataLog);
       dispatch(saveSensorDataLog(sensorDataLog.sensorDataLog))
     }
   }, [sensorDataLog])

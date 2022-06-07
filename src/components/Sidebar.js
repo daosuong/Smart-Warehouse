@@ -9,20 +9,13 @@ import '../styles/Login.css';
 
 const sidebarItems = [
   [
-    { id: '0', title: 'Dashboard', notifications: false, link: '../dashboard' },
-    { id: '1', title: 'Manage', notifications: false, link: '../detail' },
-    { id: '2', title: 'Control', notifications: false, link: '../control' },
-    { id: '3', title: 'Team', notifications: false, link: '../' },
-  ],
-  [
-    { id: '4', title: 'Tasks', notifications: false, link: '../'  },
-    { id: '5', title: 'Reports', notifications: false, link: '../'  },
-    { id: '6', title: 'Settings', notifications: false, link: '../'  },
-  ],
+    { id: 0, title: 'Dashboard', notifications: false, link: '../dashboard' },
+    { id: 1, title: 'Manage', notifications: false, link: '../detail' },
+  ]
 ];
 
 function Sidebar({ onSidebarHide, showSidebar }) {
-  const [selected, setSelected] = useState('0');
+  const [selected, setSelected] = useState(0);
   const { dashOffset, indicatorWidth, precentage } = useSpring({
     dashOffset: 26.015,
     indicatorWidth: 70,
@@ -62,21 +55,6 @@ function Sidebar({ onSidebarHide, showSidebar }) {
         </div>
       </div>
         {sidebarItems[0].map((i) => (
-          <MenuItem
-            key={i.id}
-            item={i}
-            onClick={() => {
-              setSelected(i.id)
-              console.log(selected);
-            }}
-            selected={selected}
-            link={i.link}
-          />
-        ))}
-        <div className="mt-8 mb-0 font-bold px-3 block sm:hidden xl:block">
-          SHORTCUTS
-        </div>
-        {sidebarItems[1].map((i) => (
           <MenuItem
             key={i.id}
             item={i}

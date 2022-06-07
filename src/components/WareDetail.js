@@ -12,7 +12,8 @@ import { useEffect, useState } from 'react';
 import { saveEquipmentData } from '../redux/slices/warehouseSlice';
 
 
-export default function WareDetail({ warehouseId }) {
+
+export default function WareDetail({ warehouseId = 1 }) {
   const dispatch = useDispatch();
   const { equipmentData } = useSelector(state => state.warehouse);
   const { data: presentSensorData } = useGetPresentDataQuery({warehouseId: warehouseId});
@@ -95,7 +96,7 @@ export default function WareDetail({ warehouseId }) {
       
       <div className="w-full p-2 lg:w-2/3">
         <div className="rounded-lg bg-card sm:h-100 h-100">
-          <TabChart/>
+          <TabChart warehouseId={warehouseId}/>
         </div>
       </div>
       <div className="w-full p-2 lg:w-1/3">

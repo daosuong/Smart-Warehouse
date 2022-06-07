@@ -4,24 +4,12 @@ import "../styles/Content.scss";
 import { useState } from "react";
 import DetailLocation from './DetailLocation';
 import AddWH from './AddWH';
+import { useSelector } from "react-redux";
 
-
-
-const location = [
-  'Warehouse 1',
-  'Warehouse 2',
-  'Warehouse 3',
-  'Warehouse 4',
-  'Warehouse 5',
-].map((i, index) => {
-  return {
-    id: index,
-    name: i,
-    addr: "Address " + String(index),
-  }
-})
 
 function DetailContent({ onSidebarHide }) {
+	const { location } = useSelector(state => state.warehouse)
+
   const [toggle, setToggle] = useState(1);
   return (
     <div className="flex w-full">
@@ -75,15 +63,15 @@ function DetailContent({ onSidebarHide }) {
           <div className="w-full border-gray-200 dark:border-gray-800 border-b overflow-y-auto lg:block hidden p-5">
             <div className="text-xs text-gray-400 tracking-wider">WAREHOUSES</div>
             <div className="flex flex-row space-x-4 mt-3">
-              {location.map(({id, name, addr}) => (
-              <button className={toggle === id+1 ? "rounded-lg bg-card p-3 w-full flex flex-col rounded-md shadow-lg relative ring-2 ring-blue-500 focus:outline-none" : "rounded-lg bg-card p-3 w-full flex flex-col rounded-md shadow"} onClick={() => setToggle(id+1)}>
+              {location.map(({id, name, address}) => (
+              <button key={id} className={toggle === id+1 ? "rounded-lg bg-card p-3 w-full flex flex-col rounded-md shadow-lg relative ring-2 ring-blue-500 focus:outline-none" : "rounded-lg bg-card p-3 w-full flex flex-col rounded-md shadow"} onClick={() => setToggle(id+1)}>
                 <div className="flex xl:flex-row flex-col items-center font-medium text-white-900 pb-2 mb-2 xl:border-b border-gray-200 border-opacity-75 dark:border-gray-700 w-full">
                 <IconButton icon="https://svgshare.com/i/gj6.svg" className="w-8 h-8 mr-5" />
                   {name}
                 </div>
                 <div className="flex items-center w-full">
                   <div className="text-xs py-1 px-2 leading-none bg-yellow-100 text-yellow-600 rounded-md">Address</div>
-                  <div className="ml-auto text-xs text-gray-400">{addr}</div>
+                  <div className="ml-auto text-xs text-while-400">{address}</div>
                 </div>
               </button>
               ))}

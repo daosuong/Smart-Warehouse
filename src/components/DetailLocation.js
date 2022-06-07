@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Image from './Image';
 import EditE from './EditE';
 import AddE from './AddE';
+import { Switch } from 'antd';
+import { CloseOutlined, CheckOutlined, CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
 
 
 const detailData = [
@@ -110,6 +112,11 @@ export default function DetailLocation() {
   const handleDelete = (index,e) => {
       setData(data.filter((v, i) => i !== index));
   }
+
+  const onChangeState = (checked) => {
+    console.log(checked);
+  }
+
   const rows = data.map((item, index) => {
     return (
         <tr key={index}>
@@ -127,7 +134,20 @@ export default function DetailLocation() {
               {item.type}
             </div>
           </td>
-          {item.state ? <td className="sm:p-3 py-2 px-1 border-b border-gray-200 text-green-600">On</td> : <td className="sm:p-3 py-2 px-1 border-b border-gray-200 text-red-600">Off</td>}
+          <td className="sm:p-3 py-2 px-1 border-b border-gray-200 text-green-600" style={{ width: 40 }}>
+            {item.type !== 'Cooler' ?
+            <Switch
+              defaultChecked={item.state}
+              checkedChildren="On"
+              unCheckedChildren="Off"
+              onChange={onChangeState}
+            /> :
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', fontSize: 30 }}>
+              <CaretUpOutlined onClick={() => console.log('up')} />
+              <CaretDownOutlined onClick={() => console.log('down')} />
+            </div>
+            }
+          </td>
           <td className="sm:p-3 py-2 px-1 border-b border-gray-200 md:table-cell hidden">
             <div className="flex items-center">
               {item.fInfo}
