@@ -14,7 +14,12 @@ export const rootReducer = combineReducers({
 export function makeStore() {
     return configureStore({
         reducer: rootReducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([
+            api.equipmentApi.middleware,
+            api.userApi.middleware,
+            api.sensorApi.middleware,
+            api.warehouseApi.middleware
+        ]),
     });
 };
 

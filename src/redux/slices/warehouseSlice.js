@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import moment from 'moment';
 
 const initialState = {
   equipmentData: [],
@@ -6,6 +7,7 @@ const initialState = {
   dailyData: [],
   monthlyData: [],
   location: [],
+  equipment: [],
   data: [],
   detailData: [],
 };
@@ -34,6 +36,19 @@ const warehousesSlice = createSlice({
     saveLocation(state, action) {
       state.location = action.payload;
     },
+    saveEquiment(state, action) {
+      const equipmentList = action.payload.map(e => ({
+        id: e.id,
+        name: e.name,
+        type: e.category,
+        location: e.locationId,
+        state: e.state,
+        fInfo: e.temp,
+        createdAt: moment(e.createdAt).format('hh:mm - DD/mm/yyyy'),
+        updatedAt: moment(e.updatedAt).fromNow(),
+      }))
+      state.equipment = equipmentList;
+    },
     saveData(state, action) {
       state.data = action.payload;
     },
@@ -54,6 +69,7 @@ export const {
   saveHourlyData,
   saveMonthlyData,
   saveSensorDataLog,
+  saveEquiment
 } = actions;
 
 export default reducer;

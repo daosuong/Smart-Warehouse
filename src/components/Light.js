@@ -181,7 +181,7 @@ export default function Light({offset}) {
       <div className="flex justify-center">
         <div className="flex justify-between mt-2" style={{ width: '300px' }}>
           <div className="" style={{ width: '50px', paddingLeft: '16px' }}>
-            0%
+            0
           </div>
           <div
             className=""
@@ -194,16 +194,15 @@ export default function Light({offset}) {
               className="font-bold"
               style={{ color: '#2f49d1', fontSize: '18px' }}
             >
-              { offset }%
+              { offset*20 } LUX
             </div>
             <div className="">Based on Control</div>
           </div>
           <div className="" style={{ width: '50px' }}>
-            100%
+            2000
           </div>
         </div>
       </div>
     </div>
   );
 }
-

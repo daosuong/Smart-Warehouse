@@ -12,16 +12,15 @@ import { useEffect, useState } from 'react';
 import { saveEquipmentData } from '../redux/slices/warehouseSlice';
 
 
-
-export default function WareDetail({ warehouseId = 1 }) {
+export default function WareDetail({ warehouseId }) {
   const dispatch = useDispatch();
   const { equipmentData } = useSelector(state => state.warehouse);
   const { data: presentSensorData } = useGetPresentDataQuery({warehouseId: warehouseId});
   const { data: equipmentDataList } = useGetEquimentDataQuery({warehouseId: warehouseId});
 
   const [sensorOffset, setSensorOffset] = useState({
-    lightOffset: 0,
-    humidityOffset: 0,
+    lightOffset: 1000,
+    humidityOffset: 40,
     tempOffset: 0,
     emit: false
   })
@@ -63,7 +62,7 @@ export default function WareDetail({ warehouseId = 1 }) {
       </div>
       <div className="w-full p-2 lg:w-1/4">
         <div className="rounded-lg bg-card h-80">
-          <Light offset = {lightOffset}/>
+          <Light offset = {(lightOffset/2000).toFixed(2)*100}/>
         </div>
       </div>
       <div className="w-full p-2 lg:w-1/4">

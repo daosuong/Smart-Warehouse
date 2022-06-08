@@ -1,4 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/dist/query/react";
+import { useEffect } from "react";
 import { baseQuery } from "./baseQuery";
 
 export const equipmentApi = createApi({
@@ -59,8 +60,10 @@ export const equipmentApi = createApi({
 export const {
 	useCreateNewEquipmentMutation,
 	useGetEquimentControlQuery,
+	useLazyGetEquimentControlQuery,
 	useDeleteEquipmentMutation,
 	useUpdateEquipmentMutation,
 	useGetEquimentDataQuery,
 	useGetEquipmentsQuery,
+	useLazyGetEquipmentsQuery,
 } = equipmentApi;

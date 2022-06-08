@@ -1,23 +1,25 @@
 import Graph from './Graph';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useGetDataDailyQuery, useGetDataHourlyQuery, useGetDataMonthlyQuery, useGetSensorDataLogQuery } from '../services/sensorApi'
+import { useDispatch } from 'react-redux';
+import { useGetSensorDataLogQuery } from '../services/sensorApi'
 import { saveSensorDataLog } from '../redux/slices/warehouseSlice';
 import { DAILY, MONTHLY, HOURLY } from '../constants'
 
 const hourlyData = [
-  'Nov',
-  'Dec',
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'June',
-  'July',
+  '4:00',
+  '5:00',
+  '6:00',
+  '7:00',
+  '8:00',
+  '9:00',
+  '10:00',
+  '11:00',
+  '12:00',
+  '13:00',
+  '14:00',
 ].map((i) => {
-  const temper = 10 + Math.random() * 20;
-  const humid = 30 + Math.random() * 70;
+  const temper = -10 + Math.random() * 40;
+  const humid = 10 + Math.random() * 70;
   return {
     name: i,
     temper,
@@ -27,18 +29,18 @@ const hourlyData = [
 });
 
 const dailyData = [
-  'Nov',
-  'Dec',
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'June',
-  'July',
+  '1st',
+  '2nd',
+  '3rd',
+  '4th',
+  '5th',
+  '6th',
+  '7th',
+  '6th',
+  '9th',
 ].map((i) => {
-  const temper = 10 + Math.random() * 20;
-  const humid = 30 + Math.random() * 70;
+  const temper = -10 + Math.random() * 40;
+  const humid = 10 + Math.random() * 70;
   return {
     name: i,
     temper,
@@ -58,8 +60,8 @@ const monthlyData = [
   'June',
   'July',
 ].map((i) => {
-  const temper = 10 + Math.random() * 20;
-  const humid = 30 + Math.random() * 70;
+  const temper = -10 + Math.random() * 40;
+  const humid = 10 + Math.random() * 70;
   return {
     name: i,
     temper,
@@ -80,6 +82,7 @@ export default function TabChart({ warehouseId }) {
 
   useEffect(() => {
     if(sensorDataLog) {
+      console.log(sensorDataLog.sensorDataLog);
       dispatch(saveSensorDataLog(sensorDataLog.sensorDataLog))
     }
   }, [sensorDataLog])
@@ -111,19 +114,19 @@ export default function TabChart({ warehouseId }) {
         <div
           className={toggleState === 1 ? "content active-content" : "content"}
         >
-          <Graph graphData={hourlyData}/>
+          <Graph name="Hourly" graphData={hourlyData}/>
         </div>
 
         <div
           className={toggleState === 2 ? "content active-content" : "content"}
         >
-          <Graph graphData={dailyData}/>
+          <Graph name="Daily" graphData={dailyData}/>
         </div>
 
         <div
           className={toggleState === 3 ? "content active-content" : "content"}
         >
-          <Graph graphData={monthlyData}/>
+          <Graph name="Monthly" graphData={monthlyData}/>
         </div>
       </div>
     </div>
